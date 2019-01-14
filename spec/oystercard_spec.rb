@@ -1,7 +1,7 @@
 require 'oystercard'
 
 describe Oystercard do
-
+  describe '#top up methods' do
   it {is_expected.to respond_to(:top_up).with(1).arguments}
 
   it 'Should top up oystercard with money' do
@@ -23,5 +23,17 @@ describe Oystercard do
     message = "Maximum balance exceeded"
     expect{subject.top_up(50)}.to raise_error message
   end
+
+  end
+
+  describe '#deduct methods' do
+    it {is_expected.to respond_to(:deduct).with(1).arguments}
+
+    it "Should remove money spent, when there's enough money to spend" do
+      subject.top_up(5)
+      expect{subject.deduct 1}.to change{ subject.balance }.by -1
+    end
+  end
+
 
 end

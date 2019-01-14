@@ -13,6 +13,10 @@ attr_accessor :balance
     @balance += money
   end
 
+  def deduct(money)
+    @balance -= money
+    "You have £#{@balance} left"
+  end
 
 
 private
