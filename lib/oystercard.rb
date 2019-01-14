@@ -1,10 +1,10 @@
 class Oystercard
-attr_accessor :balance
+attr_accessor :balance, :touched
 
   def initialize
 
     @balance = 0
-
+    @touched = false
   end
 
   def top_up(money)
@@ -18,6 +18,17 @@ attr_accessor :balance
     "You have £#{@balance} left"
   end
 
+  def touch_in
+    @touched = true
+  end
+
+def touch_out
+  @touched = false
+end
+
+def in_journey?
+  touched
+end
 
 private
 MAXIMUM_BALANCE = 90
