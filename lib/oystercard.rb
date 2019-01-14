@@ -1,10 +1,9 @@
 class Oystercard
-attr_accessor :balance, :touched
+attr_accessor :balance, :in_journey
 
   def initialize
-
     @balance = 0
-    @touched = false
+    @in_journey = false
   end
 
   def top_up(money)
@@ -19,18 +18,20 @@ attr_accessor :balance, :touched
   end
 
   def touch_in
-    @touched = true
+    fail "Insufficient funds" if balance < MINIMUM_BALANCE
+    @in_journey = true
   end
 
-def touch_out
-  @touched = false
-end
+  def touch_out
+    @in_journey = false
+  end
 
-def in_journey?
-  touched
-end
+  def in_journey?
+    in_journey
+  end
 
 private
 MAXIMUM_BALANCE = 90
+MINIMUM_BALANCE = 1
 
 end
