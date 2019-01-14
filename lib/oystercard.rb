@@ -12,18 +12,14 @@ attr_accessor :balance, :in_journey
     @balance += money
   end
 
-  def deduct(money)
-    @balance -= money
-    "You have £#{@balance} left"
-  end
-
   def touch_in
-    fail "Insufficient funds" if balance < MINIMUM_BALANCE
+    fail "Insufficient funds" if balance < MINIMUM_FARE
     @in_journey = true
   end
 
   def touch_out
     @in_journey = false
+    deduct
   end
 
   def in_journey?
@@ -32,6 +28,11 @@ attr_accessor :balance, :in_journey
 
 private
 MAXIMUM_BALANCE = 90
-MINIMUM_BALANCE = 1
+MINIMUM_FARE = 1
+
+def deduct
+  @balance -= MINIMUM_FARE
+end
+
 
 end
