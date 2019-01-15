@@ -2,13 +2,8 @@ require 'oystercard'
 
 describe Oystercard do
 
-  let(:entry_station) {double "Old Street"}
-  let(:exit_station)  {double "WGC"}
-
-  before (:each) do
-    @top_up = Oystercard.new
-    @top_up.top_up(Oystercard::MINIMUM_FARE)
-  end
+  let(:entry_station) {double :station}
+  let(:exit_station)  {double :station}
 
   describe '#new' do
     it 'Should initialize with journey_history as an empty array' do
@@ -40,12 +35,6 @@ describe Oystercard do
   end
 
   describe '#touch_in methods' do
-    it 'Touching in updates  -in_journey variable - to true' do
-      subject.top_up(Oystercard::MINIMUM_FARE)
-      subject.touch_in(entry_station)
-      expect(subject.in_journey?).to eq true
-    end
-
     it 'Prevents you from travelling if balance is below £1' do
       message = "Insufficient funds"
       expect{subject.touch_in(entry_station)}. to raise_error message
@@ -94,6 +83,7 @@ describe Oystercard do
       subject.touch_in(entry_station)
       expect(subject.in_journey?).to eq true
     end
+
     it 'In journey? returns false for in_journey variable' do
       subject.top_up(Oystercard::MINIMUM_FARE)
       subject.touch_in(entry_station)

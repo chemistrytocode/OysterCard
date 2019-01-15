@@ -27,7 +27,7 @@ attr_reader :balance, :entry_station, :exit_station, :journey_history
   end
 
   def add_to_history
-    @journey_history << { :Entry_Station => @entry_station, :Exit_Station => @exit_station }
+    @journey_history << { :Entry_Station => @entry_station, :Exit_Station => @exit_station }.clone
     @entry_station = nil
   end
 
