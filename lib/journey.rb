@@ -1,6 +1,7 @@
 require_relative 'oystercard'
 require_relative 'station'
 
+# Models a Journey
 class Journey
   attr_reader :entry_station, :exit_station
 
@@ -27,13 +28,12 @@ class Journey
     end
   end
 
+  private
 
-private
-MINIMUM_FARE = 1
-PENALTY_FARE = 6
+  MINIMUM_FARE = 1
+  PENALTY_FARE = 6
+
   def successful_journey?
-    false if entry_station == nil || exit_station == nil
-    true
+    !entry_station.nil? || !exit_station.nil?
   end
-
 end

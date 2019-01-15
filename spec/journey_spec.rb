@@ -1,8 +1,8 @@
 require 'journey'
 
 describe Journey do
-  let(:start_station) { double(:station, :name => "WCG", :zone => 2)}
-  let(:end_station) { double(:station, :name => "Kings Cross", :zone => 1)}
+  let(:start_station) { double(:station, name: 'WCG', zone: 2) }
+  let(:end_station) { double(:station, name: 'Kings Cross', zone: 1) }
 
   describe '#new' do
     it 'Should initialize with entry_station as nil' do
@@ -35,6 +35,4 @@ describe Journey do
       expect(subject.fare).to eq 6
     end
   end
-
-
 end

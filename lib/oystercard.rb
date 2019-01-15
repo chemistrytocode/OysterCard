@@ -1,8 +1,9 @@
 require_relative 'journey'
 require_relative 'station'
 
+# Models a Oystercard
 class Oystercard
-attr_reader :balance, :journey_history, :journey, :touched
+  attr_reader :balance, :journey_history, :journey, :touched
 
   def initialize(journey = Journey)
     @balance = 0
@@ -12,15 +13,18 @@ attr_reader :balance, :journey_history, :journey, :touched
   end
 
   def top_up(money)
-    fail "You can only top up with a maximum of £90" if money > MAXIMUM_BALANCE
-    fail "Maximum balance exceeded" if money + balance > MAXIMUM_BALANCE
+    raise 'You can only top up with a maximum of £90' if money > MAXIMUM_BALANCE
+
+    raise 'Maximum balance exceeded' if money + balance > MAXIMUM_BALANCE
+
     @balance += money
   end
 
   def touch_in(station)
     @journey.fare; deduct if touched
     @touched = true
-    fail "Insufficient funds" if balance < MINIMUM_FARE
+    raise 'Insufficient funds' if balance < MINIMUM_CHARGE
+
     @journey.start_journey(station)
   end
 
@@ -30,17 +34,18 @@ attr_reader :balance, :journey_history, :journey, :touched
     deduct
     add_to_history
     @journey = Journey.new
-
   end
 
   def add_to_history
-    @journey_history << { :Entry_Station => @journey.entry_station,
-      :Exit_Station => @journey.exit_station }.clone
+    @journey_history << { Entry_Station: @journey.entry_station,
+                          Exit_Station: @journey.exit_station }.clone
   end
 
-private
-MAXIMUM_BALANCE = 90
-MINIMUM_FARE = 1
+  private
+
+  MAXIMUM_BALANCE = 90
+  MINIMUM_CHARGE = 1
+
   def deduct(amount = @journey.fare)
     @balance -= amount
   end

@@ -1,3 +1,4 @@
+# Models a station
 class Station
   attr_reader :name, :zone
 
@@ -5,5 +6,4 @@ class Station
     @name = name
     @zone = zone
   end
-
 end
