@@ -18,51 +18,17 @@ class Journey
   end
 
   def fare
-    return PENALTY_FARE if entry_station == nil || exit_station == nil
-    MINIMUM_FARE
-    # if entry_station == nil || exit_station == nil
-    #   PENALTY_FARE
-    # else
-    #   MINIMUM_FARE
-    # end
+    MINIMUM_FARE if successful_journey?
+    PENALTY_FARE
   end
+
 
 private
 MINIMUM_FARE = 1
 PENALTY_FARE = 6
+  def successful_journey?
+    false if entry_station == nil || exit_station == nil
+    true
+  end
 
 end
-#
-
-#
-#
-#   def fare
-#     1 or 6
-#   end
-#
-#   @entry_station = nil
-# end
-#
-# def in_journey?
-#   !!entry_station
-# end
-#
-# end
-
-#Start journey
-#Finish
-#Calculate fare
-#Whether complete?
-
-
-# card = Oystercard.new
-#       @journey
-# card.top_up(5)
-# card.touch_in(Station.new("WCG", 2))
-#       @journey.start_journey(station)
-# card.touch_out(Station.new("Kings Cross", 1)
-#       @journey.end_journey(station)
-#       @journey.fare/penalty
-# card.deducts
-# card.add_to_history
-#
