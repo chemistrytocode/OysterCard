@@ -28,13 +28,12 @@ describe Journey do
 
   describe '#fare' do
     it 'Should return the minimum fare of 1 for a successful journey' do
-      subject.start_journey(start_station)
-      subject.end_journey(end_station)
+      allow(subject).to receive(:successful_journey?) { true }
       expect(subject.fare).to eq 1
     end
 
     it 'Should return the penalty fare of 6 for a unsuccessful journey' do
-      subject.start_journey(start_station)
+      allow(subject).to receive(:successful_journey?) { false }
       expect(subject.fare).to eq 6
     end
   end

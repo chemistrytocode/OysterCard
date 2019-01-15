@@ -39,59 +39,16 @@ describe Oystercard do
       message = "Insufficient funds"
       expect{subject.touch_in(entry_station)}. to raise_error message
     end
-
-    it 'Should remember entry station, when touch_in' do
-      subject.top_up(Oystercard::MINIMUM_FARE)
-      subject.touch_in(entry_station)
-      expect(subject.entry_station).to eq entry_station
-    end
   end
 
   describe '#touch out methods' do
-     it 'Touching out updates  -in_journey variable- to false' do
-      subject.top_up(Oystercard::MINIMUM_FARE)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.in_journey?).to eq false
-    end
-
     it 'Should deduct the minimum fare on touching out' do
       subject.top_up(Oystercard::MINIMUM_FARE)
       subject.touch_in(entry_station)
       expect{subject.touch_out(exit_station)}.to change{subject.balance}.by -Oystercard::MINIMUM_FARE
     end
-
-    it 'Should forget entry station on touch out and revenrt to nill' do
-      subject.top_up(Oystercard::MINIMUM_FARE)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.entry_station).to eq nil
-    end
-
-    it 'Should remember exit station, when touch_out' do
-      subject.top_up(Oystercard::MINIMUM_FARE)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.exit_station).to eq exit_station
-    end
-
   end
-
-  describe '#in journey? method' do
-    it 'In journey? method returns true for in_journey variable' do
-      subject.top_up(Oystercard::MINIMUM_FARE)
-      subject.touch_in(entry_station)
-      expect(subject.in_journey?).to eq true
-    end
-
-    it 'In journey? returns false for in_journey variable' do
-      subject.top_up(Oystercard::MINIMUM_FARE)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.in_journey?).to eq false
-    end
-  end
-
+  
   describe '#add_to_history' do
     it 'Confirms entry station was saved in jouney_history' do
       subject.top_up(Oystercard::MINIMUM_FARE)

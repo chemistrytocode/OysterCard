@@ -18,7 +18,7 @@ class Journey
   end
 
   def fare
-    MINIMUM_FARE if successful_journey?
+    return MINIMUM_FARE if successful_journey?
     PENALTY_FARE
   end
 

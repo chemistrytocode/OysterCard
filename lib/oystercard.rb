@@ -37,10 +37,6 @@ attr_reader :balance, :journey_history, :touched
       :Exit_Station => @journey.exit_station }.clone
   end
 
-  def in_journey?
-    !!entry_station
-  end
-
 private
 MAXIMUM_BALANCE = 90
 MINIMUM_FARE = 1
