@@ -36,12 +36,12 @@ describe Oystercard do
   end
 
   describe '#touch_in methods' do
-    # it 'Should deduct balance by the PENALTY_FARE if customer
-    # touchs in without touching out' do
-    #   subject.top_up(10)
-    #   2.times { subject.touch_in(start_station) }
-    #   expect(subject.balance).to eq 4
-    # end
+    it 'Should deduct balance by the PENALTY_FARE if customer
+    touchs in without touching out' do
+      subject.top_up(10)
+      2.times { subject.touch_in(start_station) }
+      expect(subject.balance).to eq 4
+    end
     it 'Sets touched to true on touch_in' do
       subject.top_up(10)
       subject.touch_in(start_station)

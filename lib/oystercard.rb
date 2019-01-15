@@ -21,10 +21,9 @@ class Oystercard
   end
 
   def touch_in(station)
-    @journey.fare; deduct if touched
+    deduct if touched
     @touched = true
     raise 'Insufficient funds' if balance < MINIMUM_CHARGE
-
     @journey.start_journey(station)
   end
 
