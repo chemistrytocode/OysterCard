@@ -8,7 +8,6 @@ describe Journey do
     it 'Should initialize with entry_station as nil' do
       expect(subject.entry_station).to eq nil
     end
-
     it 'Should initialize with exit_station as nil' do
       expect(subject.exit_station).to eq nil
     end
@@ -31,7 +30,6 @@ describe Journey do
       allow(subject).to receive(:successful_journey?) { true }
       expect(subject.fare).to eq 1
     end
-
     it 'Should return the penalty fare of 6 for a unsuccessful journey' do
       allow(subject).to receive(:successful_journey?) { false }
       expect(subject.fare).to eq 6
