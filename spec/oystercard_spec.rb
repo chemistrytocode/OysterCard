@@ -14,15 +14,12 @@ describe Oystercard do
     it 'Should initialize journey as a new Journey object' do
       expect(subject.journey).to be_a Journey
     end
-    it 'Should initialize touched as false' do
-      expect(subject.touched).to eq false
-    end
   end
 
   describe '#top up methods' do
     it 'Should top up oystercard with money' do
-      expect { subject.top_up Oystercard::MAXIMUM_BALANCE }
-        .to change { subject.balance }.by Oystercard::MAXIMUM_BALANCE
+      expect(subject.top_up(Oystercard::MAXIMUM_BALANCE))
+      .to eq Oystercard::MAXIMUM_BALANCE
     end
     it 'Will not allow you to top up more than £90 at once' do
       message = 'You can only top up with a maximum of £90'
@@ -42,11 +39,6 @@ describe Oystercard do
       2.times { subject.touch_in(start_station) }
       expect(subject.balance).to eq 4
     end
-    it 'Sets touched to true on touch_in' do
-      subject.top_up(10)
-      subject.touch_in(start_station)
-      expect(subject.touched).to eq true
-    end
     it 'Prevents you from travelling if balance is below £1' do
       message = 'Insufficient funds'
       expect { subject.touch_in(start_station) }. to raise_error message
@@ -59,12 +51,6 @@ describe Oystercard do
       subject.touch_in(start_station)
       expect { subject.touch_out(end_station) }.to change { subject.balance }
         .by -Oystercard::MINIMUM_CHARGE
-    end
-    it 'Sets touched to false on touch_out' do
-      subject.top_up(10)
-      subject.touch_in(start_station)
-      subject.touch_out(end_station)
-      expect(subject.touched).to eq false
     end
   end
 

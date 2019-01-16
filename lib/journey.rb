@@ -20,17 +20,19 @@ class Journey
 
   def fare
     return PENALTY_FARE if unsuccessful_journey?
+    
     MINIMUM_FARE
   end
 
-  def unsuccessful_journey?
-    entry_station.nil? || exit_station.nil?
-  end
+
 
   private
 
   MINIMUM_FARE = 1
   PENALTY_FARE = 6
 
+  def unsuccessful_journey?
+    entry_station.nil? || exit_station.nil?
+  end
 
 end
