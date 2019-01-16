@@ -1,14 +1,13 @@
-require_relative 'journey'
 require_relative 'station'
+require_relative 'journeylog'
 
 # Models a Oystercard
 class Oystercard
-  attr_reader :balance, :journey_history, :journey, :touched
+  attr_reader :balance, :journeylog
 
-  def initialize(journey = Journey)
+  def initialize(journeylog = JourneyLog)
     @balance = 0
-    @journey_history = []
-    @journey = journey.new
+    @journeylog = journeylog.new
   end
 
   def top_up(money)
@@ -19,22 +18,15 @@ class Oystercard
     @balance += money
   end
 
-  def touch_in(station)
-    deduct if !@journey.entry_station.nil?
+  def touch_in(entry_station)
+    deduct if !@journeylog.journey.entry_station.nil?
     raise 'Insufficient funds' if balance < MINIMUM_CHARGE
-    @journey.start_journey(station)
+    @journeylog.start(entry_station)
   end
 
-  def touch_out(station)
-    @journey.end_journey(station)
+  def touch_out(exit_station)
+    @journeylog.finish(exit_station)
     deduct
-    add_to_history
-    @journey = Journey.new
-  end
-
-  def add_to_history
-    @journey_history << { Entry_Station: @journey.entry_station,
-                          Exit_Station: @journey.exit_station }.clone
   end
 
   private
@@ -42,7 +34,8 @@ class Oystercard
   MAXIMUM_BALANCE = 90
   MINIMUM_CHARGE = 1
 
-  def deduct(amount = @journey.fare)
+  def deduct(amount = @journeylog.price)
     @balance -= amount
+    @journeylog.add_to_history
   end
 end

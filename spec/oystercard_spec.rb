@@ -8,12 +8,6 @@ describe Oystercard do
     it 'Should initialize balance as 0' do
       expect(subject.balance).to eq 0
     end
-    it 'Should initialize journey_history as an empty array' do
-      expect(subject.journey_history).to be_empty
-    end
-    it 'Should initialize journey as a new Journey object' do
-      expect(subject.journey).to be_a Journey
-    end
   end
 
   describe '#top up methods' do
@@ -51,16 +45,6 @@ describe Oystercard do
       subject.touch_in(start_station)
       expect { subject.touch_out(end_station) }.to change { subject.balance }
         .by -Oystercard::MINIMUM_CHARGE
-    end
-  end
-
-  describe '#add_to_history' do
-    it 'Confirms entry station was saved in jouney_history' do
-      subject.top_up(Oystercard::MINIMUM_CHARGE)
-      subject.touch_in(start_station)
-      subject.touch_out(end_station)
-      subject.add_to_history
-      expect(subject.journey_history[0][:Exit_Station]).to eq end_station
     end
   end
 end

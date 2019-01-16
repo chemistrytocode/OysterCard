@@ -1,6 +1,3 @@
-require_relative 'oystercard'
-require_relative 'station'
-
 # Models a Journey
 class Journey
   attr_reader :entry_station, :exit_station
@@ -20,7 +17,7 @@ class Journey
 
   def fare
     return PENALTY_FARE if unsuccessful_journey?
-    
+
     MINIMUM_FARE
   end
 

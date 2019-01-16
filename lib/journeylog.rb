@@ -1,3 +1,5 @@
+require_relative 'journey'
+
 class JourneyLog
   attr_reader :journey, :journey_history
   def initialize
@@ -13,6 +15,10 @@ class JourneyLog
     @journey.end_journey(station)
   end
 
+  def price
+    @journey.fare
+  end
+
   def journeys
     @journey_history.clone
   end
@@ -20,6 +26,7 @@ class JourneyLog
   def add_to_history
     @journey_history << { Entry_Station: @journey.entry_station,
                           Exit_Station: @journey.exit_station }
+    new_journey
   end
 
   def new_journey
