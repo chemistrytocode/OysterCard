@@ -1,6 +1,9 @@
 # Models a Journey
+# Logs entry and exit station and determines appropriate fare.
 class Journey
   attr_reader :entry_station, :exit_station
+  MINIMUM_FARE = 1
+  PENALTY_FARE = 6
 
   def initialize
     @entry_station = nil
@@ -21,15 +24,9 @@ class Journey
     MINIMUM_FARE
   end
 
-
-
   private
-
-  MINIMUM_FARE = 1
-  PENALTY_FARE = 6
 
   def unsuccessful_journey?
     entry_station.nil? || exit_station.nil?
   end
-
 end

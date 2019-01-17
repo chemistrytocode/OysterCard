@@ -1,5 +1,7 @@
 require_relative 'journey'
 
+# Models a JourneyLog class
+# Monitors journey history and accesses journey methods
 class JourneyLog
   attr_reader :journey, :journey_history
   def initialize
@@ -32,27 +34,4 @@ class JourneyLog
   def new_journey
     @journey = Journey.new
   end
-
 end
-
-
-
-
-# def initialize
-#   @entry_station = nil
-#   @exit_station = nil
-# end
-#
-# def start_journey(entry_station)
-#   @entry_station = entry_station
-# end
-#
-# def end_journey(exit_station)
-#   @exit_station = exit_station
-# end
-#
-# def fare
-#   return PENALTY_FARE if unsuccessful_journey?
-#
-#   MINIMUM_FARE
-# end

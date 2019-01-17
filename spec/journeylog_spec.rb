@@ -1,21 +1,20 @@
 require 'journeylog'
 
 describe JourneyLog do
-  let(:entry_station) { double :station, name: "Waterloo", zone: 1 }
-  let(:exit_station) { double :station, name: "Kings Cross", zone: 1 }
-  let(:default_journey) { double :journey, entry_station: entry_station, exit_station: exit_station }
+  let(:entry) { double :station, name: 'Waterloo', zone: 1 }
+  let(:exit) { double :station, name: 'Kings Cross', zone: 1 }
 
   describe '#start' do
     it 'Starts a new journey with an entry station' do
-      subject.start(entry_station)
-      expect(subject.journey.entry_station).to eq entry_station
+      subject.start(entry)
+      expect(subject.journey.entry_station).to eq entry
     end
   end
 
   describe '#finish' do
     it 'Ends a journey with an entry station' do
-    subject.finish(exit_station)
-    expect(subject.journey.exit_station).to eq exit_station
+      subject.finish(exit)
+    expect(subject.journey.exit_station).to eq exit
     end
   end
 
@@ -27,11 +26,11 @@ describe JourneyLog do
 
   describe '#add_to_history' do
     it 'Adds journey details to journey_history' do
-      subject.start(entry_station)
-      subject.finish(exit_station)
+      subject.start(entry)
+      subject.finish(exit)
       subject.add_to_history
       expect(subject.journey_history[0])
-      .to eq ({Entry_Station: entry_station, Exit_Station: exit_station})
+        .to eq ({ Entry_Station: entry, Exit_Station: exit })
     end
   end
 
@@ -41,6 +40,4 @@ describe JourneyLog do
       expect(subject.journey.entry_station).to eq nil
     end
   end
-
-
 end
